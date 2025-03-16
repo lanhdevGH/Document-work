@@ -67,6 +67,57 @@ tar -xf vscode_cli.tar.gz
    nohup ./code tunnel &
    ```
 
+## Kết nối lại sau khi server tắt
+
+Nếu server bị tắt hoặc khởi động lại, tunnel cũng sẽ bị ngắt kết nối. Để kết nối lại:
+
+### Trên server:
+
+1. Đăng nhập vào server qua SSH
+2. Khởi động lại tunnel bằng cách chạy lại lệnh:
+   ```bash
+   ./code tunnel
+   ```
+   
+3. Hoặc nếu bạn đã lưu trữ thông tin tunnel trước đó, bạn có thể chạy:
+   ```bash
+   ./code tunnel --name your-tunnel-name
+   ```
+
+4. Để tự động khởi động tunnel khi server khởi động, bạn có thể tạo một service systemd:
+   
+   Tạo file `/etc/systemd/system/vscode-tunnel.service`:
+   ```
+   [Unit]
+   Description=VS Code Tunnel Service
+   After=network.target
+
+   [Service]
+   Type=simple
+   User=your-username
+   WorkingDirectory=/path/to/vscode-cli
+   ExecStart=/path/to/vscode-cli/code tunnel --accept-server-license-terms
+   Restart=always
+   RestartSec=10
+
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+   Sau đó kích hoạt và khởi động service:
+   ```bash
+   sudo systemctl enable vscode-tunnel.service
+   sudo systemctl start vscode-tunnel.service
+   ```
+
+### Trên máy cá nhân:
+
+1. Mở VS Code
+2. Mở Remote Explorer (Ctrl+Shift+P và tìm "Remote Explorer")
+3. Trong phần "Tunnels", tìm tunnel đã tạo và nhấp vào để kết nối lại
+4. Nếu tunnel không xuất hiện ngay lập tức, có thể cần đợi vài phút để đồng bộ lại
+5. Nếu bạn sử dụng cùng tài khoản Microsoft trên cả server và máy cá nhân, tunnel sẽ tự động xuất hiện trong danh sách sau khi được khởi động lại trên server
+
 ## Tài liệu tham khảo
 
 - [Tài liệu chính thức VS Code Remote Development](https://code.visualstudio.com/docs/remote/tunnels)
