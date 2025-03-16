@@ -57,6 +57,31 @@ tar -xf vscode_cli.tar.gz
 - Sau khi kết nối thành công, bạn có thể mở thư mục từ server và làm việc như thể đang làm việc trên máy tính cá nhân
 - Bạn có thể truy cập terminal, debug, sử dụng extensions,... tương tự như khi làm việc trực tiếp trên server
 
+### Cách chạy terminal trên máy client qua tunnel
+
+1. Sau khi kết nối thành công đến VS Code Tunnel, có nhiều cách để mở terminal:
+
+   - **Cách 1**: Nhấn tổ hợp phím `Ctrl+` (dấu backtick) hoặc `Ctrl+Shift+` (Windows/Linux)
+   - **Cách 2**: Vào menu `Terminal > New Terminal`
+   - **Cách 3**: Nhấn `Ctrl+Shift+P` để mở Command Palette, sau đó tìm và chọn `Terminal: Create New Terminal`
+
+2. Terminal được mở ra sẽ chạy trực tiếp trên server, không phải trên máy client của bạn
+   
+3. Bạn có thể tùy chỉnh terminal:
+   - Mở nhiều terminal cùng lúc: Nhấn vào biểu tượng + trong khu vực terminal
+   - Chọn loại shell: Nhấn vào menu dropdown ở góc phải của terminal để chọn bash, zsh, powershell, etc.
+   - Chia terminal: Nhấp chuột phải vào tab terminal và chọn "Split Terminal"
+
+4. Làm việc với terminal:
+   - Terminal này có tất cả quyền của người dùng bạn đã dùng để thiết lập tunnel
+   - Bạn có thể chạy tất cả lệnh bash, sử dụng các công cụ CLI, và làm việc với file hệ thống của server
+   - Copy/paste hoạt động giống như khi dùng terminal trên máy local
+
+5. Các tính năng nâng cao:
+   - Terminal tích hợp có thể nhận diện đường dẫn file, URL và các lỗi, cho phép bạn nhấp vào để mở
+   - Bạn có thể chạy nhiều session terminal cùng lúc, mỗi session trong một tab riêng biệt
+   - Các biến môi trường từ server được giữ nguyên trong terminal tunnel
+
 ## Lưu ý quan trọng
 
 1. VS Code Tunnel yêu cầu tài khoản Microsoft để xác thực
